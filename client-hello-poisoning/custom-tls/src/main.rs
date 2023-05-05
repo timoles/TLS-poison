@@ -200,6 +200,10 @@ impl Connection {
 
         if ev.readiness().is_writable() {
             self.do_tls_write_and_handle_error();
+            if env::var("CLOSE").is_ok() && env::var("TERMINATE").is_ok() { // Close is set earlier, TERMINATE needs to be set us to overwrite default behavior.
+                error!("TIMO writing TLS x");
+                process::exit(0x0100);
+            }
         }
 
         if self.closing && !self.tls_session.wants_write() {
@@ -326,6 +330,7 @@ impl Connection {
                 .unwrap();
             self.sent_http_response = true;
             self.tls_session.send_close_notify();
+            env::set_var("CLOSE","CLOSE"); // Set an env variable for ourselves which indicates that we just put the close_notify package on the buffer and we want to close the TLS connection after the next write.
         }
     }
 
