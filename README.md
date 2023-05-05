@@ -1,3 +1,7 @@
+Modified fork.
+
+When the environment variable `TERMINATE` is set, the TLS server will shut down after it wrote the TLS payload and gracefully closed the connection with its' peer.
+
 # TLS Poison
 [YouTube link to presentation](https://youtube.com/watch?v=qGpAJxfADjo)
 
