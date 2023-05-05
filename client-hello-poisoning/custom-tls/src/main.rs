@@ -201,7 +201,7 @@ impl Connection {
         if ev.readiness().is_writable() {
             self.do_tls_write_and_handle_error();
             if env::var("CLOSE").is_ok() && env::var("TERMINATE").is_ok() { // Close is set earlier, TERMINATE needs to be set us to overwrite default behavior.
-                error!("TIMO writing TLS x");
+                error!("TERMINATE variable is set. Shutting down the server because we set the payload once.");
                 process::exit(0x0100);
             }
         }
