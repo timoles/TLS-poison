@@ -3,6 +3,9 @@ use std::cmp;
 extern crate mio;
 use mio::tcp::{TcpListener, TcpStream, Shutdown};
 
+use std::env;
+use std::process;
+
 #[macro_use]
 extern crate log;
 
